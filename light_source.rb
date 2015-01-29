@@ -10,6 +10,7 @@ class LightSource
 
   def shadow_circle window, circle
     dist = Gosu::distance @x, @y, circle.x, circle.y
+    depth = 2.0 - dist / SHADOW_LENGTH
 
     bx1, by1, bx2, by2 = endpoints_facing circle.x, circle.y, @x, @y, circle.r
 
@@ -21,7 +22,7 @@ class LightSource
     sx2 = bx2 + nx2 * SHADOW_LENGTH
     sy2 = by2 + ny2 * SHADOW_LENGTH
 
-    window.gl 0 do
+    window.gl depth do
       glDisable GL_DEPTH_TEST
       glEnable GL_BLEND
       glBlendEquationSeparate GL_FUNC_ADD, GL_FUNC_ADD
@@ -37,6 +38,8 @@ class LightSource
       glVertex3f bx2, by2, 0
       glEnd
     end
+
+    return depth
   end
 
   private

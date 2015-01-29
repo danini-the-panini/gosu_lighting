@@ -35,8 +35,8 @@ class Lighting < Gosu::Window
       glClear GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
     end
     @circles.each do |c|
-      @light_source.shadow_circle self, c
-      c.draw 1
+      depth = @light_source.shadow_circle self, c
+      c.draw depth
     end
   end
 
