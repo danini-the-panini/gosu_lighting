@@ -44,11 +44,14 @@ class Lighting < Gosu::Window
         c.draw depth
       end
     end
-    @light_source.draw_attenuation
+    @light_source.draw_attenuation 3
+    light_bulb_scale = 3 / (@circle_sprite.width*0.5)
+    @circle_sprite.draw @light_source.x - 3, @light_source.y - 3, 4,
+      light_bulb_scale, light_bulb_scale
   end
 
   def needs_cursor?
-    true
+    false
   end
 
 end

@@ -44,9 +44,9 @@ class LightSource
     return depth
   end
 
-  def draw_attenuation
+  def draw_attenuation depth
     light_scale_factor = @radius * 2.0 / @att_sprite.width
-    @att_sprite.draw @x - @radius, @y - @radius, 3, light_scale_factor, light_scale_factor, 0xff999999, :multiply
+    @att_sprite.draw @x - @radius, @y - @radius, depth, light_scale_factor, light_scale_factor, 0xff999999, :multiply
   end
 
   def clip window
