@@ -1,11 +1,12 @@
 SHADOW_LENGTH = 1000
 
 class LightSource
-  attr_accessor :x, :y
+  attr_accessor :x, :y, :radius
 
-  def initialize x, y
+  def initialize x, y, radius
     @x = x
     @y = y
+    @radius = radius
   end
 
   def shadow_circle window, circle
