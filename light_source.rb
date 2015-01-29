@@ -3,7 +3,8 @@ SHADOW_LENGTH = 1000
 class LightSource
   attr_accessor :x, :y, :radius
 
-  def initialize x, y, radius
+  def initialize window, x, y, radius
+    @att_sprite = Gosu::Image.new window, 'light.png'
     @x = x
     @y = y
     @radius = radius
@@ -41,6 +42,17 @@ class LightSource
     end
 
     return depth
+  end
+
+  def draw_attenuation
+    light_scale_factor = @radius * 2.0 / @att_sprite.width
+    @att_sprite.draw @x - @radius, @y - @radius, 3, light_scale_factor, light_scale_factor, 0xff999999, :multiply
+  end
+
+  def clip window
+    window.clip_to(@x - @radius, @y - @radius, @radius*2.0, @radius*2.0) do
+      yield
+    end
   end
 
   private
