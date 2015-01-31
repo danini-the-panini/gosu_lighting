@@ -4,7 +4,7 @@ class LightSource
   attr_accessor :x, :y, :radius
 
   def initialize window, x, y, radius
-    @att_sprite = Gosu::Image.new window, 'light.png'
+    @att_sprite = Gosu::Image.new window, 'light.png', true
     @x = x
     @y = y
     @radius = radius
@@ -45,12 +45,11 @@ class LightSource
   end
 
   def draw_attenuation depth
-    light_scale_factor = @radius * 2.0 / @att_sprite.width
-    @att_sprite.draw @x - @radius, @y - @radius, depth, light_scale_factor, light_scale_factor, 0xff999999, :multiply
+    draw_as_rect @att_sprite, *clip_rect, depth, 0xff999999, :multiply
   end
 
   def clip window
-    window.clip_to(@x - @radius, @y - @radius, @radius*2.0, @radius*2.0) do
+    window.clip_to(*clip_rect) do
       yield
     end
   end
@@ -78,5 +77,13 @@ class LightSource
     x, y = vector x1, y1, x2, y2
 
     [x/d, y/d]
+  end
+
+  def clip_rect
+    [(@x - @radius).to_i, (@y - @radius).to_i, (@radius*2.0).to_i, (@radius*2.0).to_i]
+  end
+
+  def draw_as_rect sprite, x, y, w, h, z, color, mode
+    sprite.draw_as_quad x, y, color, x+w, y, color, x+w, y+h, color, x, y+h, color, z, mode
   end
 end

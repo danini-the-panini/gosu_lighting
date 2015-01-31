@@ -15,11 +15,11 @@ require_relative 'light_source'
 
 class Lighting < Gosu::Window
   def initialize
-    super 640, 480, false
+    super 1280, 720, false
     @ground_sprite = Gosu::Image.new self, 'ground.png', true
     @circle_sprite = Gosu::Image.new self, 'circle.png'
-    @circles = 20.times.map do
-      Circle.new(Gosu.random(0,640), Gosu.random(0,480), Gosu.random(5,30),
+    @circles = 100.times.map do
+      Circle.new(Gosu.random(0,width), Gosu.random(0,height), Gosu.random(5,30),
                  @circle_sprite, 0xffff00ff)
     end
     @light_source = LightSource.new self, 0, 0, 300
@@ -45,7 +45,7 @@ class Lighting < Gosu::Window
       end
     end
     @light_source.draw_attenuation 3
-    light_bulb_scale = 3 / (@circle_sprite.width*0.5)
+    light_bulb_scale = 4 / (@circle_sprite.width*0.5)
     @circle_sprite.draw @light_source.x - 3, @light_source.y - 3, 4,
       light_bulb_scale, light_bulb_scale
   end
