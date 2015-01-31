@@ -11,6 +11,7 @@ include GLFW
 glfwInit
 
 require_relative 'circle'
+require_relative 'rectangle'
 require_relative 'light_source'
 
 class Lighting < Gosu::Window
@@ -18,10 +19,14 @@ class Lighting < Gosu::Window
     super 1280, 720, false
     @ground_sprite = Gosu::Image.new self, 'ground.png', true
     @circle_sprite = Gosu::Image.new self, 'circle.png'
-    @circles = 100.times.map do
+    @rect_sprite = Gosu::Image.new self, 'rect.png'
+    @circles = 5.times.map do
       Circle.new(Gosu.random(0,width), Gosu.random(0,height), Gosu.random(5,30),
                  @circle_sprite, 0xffff00ff)
     end
+    @rects = [
+      Rectangle.new(400, 300, 100, 50, @rect_sprite, 0xff00ff00)
+    ]
     @light_source = LightSource.new self, 0, 0, 300
   end
 
@@ -42,6 +47,10 @@ class Lighting < Gosu::Window
       @circles.each do |c|
         depth = @light_source.shadow_circle self, c
         c.draw depth
+      end
+      @rects.each do |r|
+        depth = @light_source.shadow_rect self, r
+        r.draw depth
       end
     end
     @light_source.draw_attenuation 3

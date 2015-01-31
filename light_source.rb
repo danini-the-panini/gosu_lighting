@@ -25,20 +25,46 @@ class LightSource
     sy2 = by2 + ny2 * SHADOW_LENGTH
 
     window.gl depth do
-      glDisable GL_DEPTH_TEST
-      glEnable GL_BLEND
-      glBlendEquationSeparate GL_FUNC_ADD, GL_FUNC_ADD
-      glBlendFuncSeparate GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO
+      gl_draw_shadow bx1, by1, sx1, sy1, sx2, sy2, bx2, by2
+    end
 
-      glBegin GL_QUADS
-      glColor4f 0, 0, 0, 0.9
-      glVertex3f bx1, by1, 0
-      glColor4f 0, 0, 0, 0
-      glVertex3f sx1, sy1, 0
-      glVertex3f sx2, sy2, 0
-      glColor4f 0, 0, 0, 0.9
-      glVertex3f bx2, by2, 0
-      glEnd
+    return depth
+  end
+
+  def shadow_rect window, rect
+    dist = Gosu::distance @x, @y, rect.center_x, rect.center_y
+    depth = 2.0 - dist / SHADOW_LENGTH
+
+    cx1 = cx2 = rect.x
+    cy1 = cy2 = rect.y
+    if @x < rect.x
+      cy1 += rect.height
+    elsif @x < rect.x + rect.width
+      cy1 += rect.height if @y > rect.center_y
+      cy2 = cy1
+    else
+      cy2 += rect.height
+    end
+
+    if @y < rect.y
+      cx2 += rect.width
+    elsif @y < rect.y + rect.height
+      cx1 += rect.width if @x > rect.center_x
+      cx2 = cx1
+    else
+      cx1 += rect.width
+    end
+
+    nx1, ny1 = normal @x, @y, cx1, cy1
+    nx2, ny2 = normal @x, @y, cx2, cy2
+
+    sx1 = cx1 + nx1 * SHADOW_LENGTH
+    sy1 = cy1 + ny1 * SHADOW_LENGTH
+    sx2 = cx2 + nx2 * SHADOW_LENGTH
+    sy2 = cy2 + ny2 * SHADOW_LENGTH
+
+    window.gl depth do
+      gl_draw_shadow cx1, cy1, sx1, sy1, sx2, sy2, cx2, cy2
     end
 
     return depth
@@ -85,5 +111,22 @@ class LightSource
 
   def draw_as_rect sprite, x, y, w, h, z, color, mode
     sprite.draw_as_quad x, y, color, x+w, y, color, x+w, y+h, color, x, y+h, color, z, mode
+  end
+
+  def gl_draw_shadow x1, y1, x2, y2, x3, y3, x4, y4
+    glDisable GL_DEPTH_TEST
+    glEnable GL_BLEND
+    glBlendEquationSeparate GL_FUNC_ADD, GL_FUNC_ADD
+    glBlendFuncSeparate GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO
+
+    glBegin GL_QUADS
+    glColor4f 0, 0, 0, 0.9
+    glVertex3f x1, y1, 0
+    glColor4f 0, 0, 0, 0
+    glVertex3f x2, y2, 0
+    glVertex3f x3, y3, 0
+    glColor4f 0, 0, 0, 0.9
+    glVertex3f x4, y4, 0
+    glEnd
   end
 end
