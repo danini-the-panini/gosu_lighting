@@ -19,13 +19,14 @@ class Lighting < Gosu::Window
     super 1280, 720, false
     @ground_sprite = Gosu::Image.new self, 'ground.png', true
     @circle_sprite = Gosu::Image.new self, 'circle.png'
-    @rect_sprite = Gosu::Image.new self, 'rect.png'
+    @rect_sprite = Gosu::Image.new self, 'rect.png', true
     @circles = 5.times.map do
       Circle.new(Gosu.random(0,width), Gosu.random(0,height), Gosu.random(5,30),
                  @circle_sprite, 0xffff00ff)
     end
     @rects = [
-      Rectangle.new(400, 300, 100, 50, @rect_sprite, 0xff00ff00)
+      Rectangle.new(400, 300, 500, 30, @rect_sprite, 0xff00ff00),
+      #Rectangle.new(400, 300, 100, 50, @rect_sprite, 0xff00ff00)
     ]
     @light_source = LightSource.new self, 0, 0, 300
   end

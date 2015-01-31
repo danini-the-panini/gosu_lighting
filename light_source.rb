@@ -10,9 +10,9 @@ class LightSource
     @radius = radius
   end
 
-  def shadow_circle window, circle
+  def shadow_circle window, circle, depth = 1
     dist = Gosu::distance @x, @y, circle.x, circle.y
-    depth = 2.0 - dist / SHADOW_LENGTH
+    depth = depth + 1.0 - dist / SHADOW_LENGTH
 
     bx1, by1, bx2, by2 = endpoints_facing circle.x, circle.y, @x, @y, circle.r
 
@@ -25,15 +25,15 @@ class LightSource
     sy2 = by2 + ny2 * SHADOW_LENGTH
 
     window.gl depth do
-      gl_draw_shadow bx1, by1, sx1, sy1, sx2, sy2, bx2, by2
+      gl_draw_shadow bx1, by1, sx1, sy1, sx2, sy2, bx2, by2, 0.5
     end
 
     return depth
   end
 
-  def shadow_rect window, rect
+  def shadow_rect window, rect, depth = 2
     dist = Gosu::distance @x, @y, rect.center_x, rect.center_y
-    depth = 2.0 - dist / SHADOW_LENGTH
+    depth = depth + 1.0 - dist / SHADOW_LENGTH
 
     cx1 = cx2 = rect.x
     cy1 = cy2 = rect.y
@@ -64,7 +64,7 @@ class LightSource
     sy2 = cy2 + ny2 * SHADOW_LENGTH
 
     window.gl depth do
-      gl_draw_shadow cx1, cy1, sx1, sy1, sx2, sy2, cx2, cy2
+      gl_draw_shadow cx1, cy1, sx1, sy1, sx2, sy2, cx2, cy2, 1.0
     end
 
     return depth
@@ -113,19 +113,19 @@ class LightSource
     sprite.draw_as_quad x, y, color, x+w, y, color, x+w, y+h, color, x, y+h, color, z, mode
   end
 
-  def gl_draw_shadow x1, y1, x2, y2, x3, y3, x4, y4
+  def gl_draw_shadow x1, y1, x2, y2, x3, y3, x4, y4, alpha = 0.9
     glDisable GL_DEPTH_TEST
     glEnable GL_BLEND
     glBlendEquationSeparate GL_FUNC_ADD, GL_FUNC_ADD
     glBlendFuncSeparate GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO
 
     glBegin GL_QUADS
-    glColor4f 0, 0, 0, 0.9
+    glColor4f 0, 0, 0, alpha
     glVertex3f x1, y1, 0
     glColor4f 0, 0, 0, 0
     glVertex3f x2, y2, 0
     glVertex3f x3, y3, 0
-    glColor4f 0, 0, 0, 0.9
+    glColor4f 0, 0, 0, alpha
     glVertex3f x4, y4, 0
     glEnd
   end
