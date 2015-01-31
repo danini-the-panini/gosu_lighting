@@ -1,4 +1,4 @@
-SHADOW_LENGTH = 1000
+SHADOW_LENGTH = 20000
 
 class LightSource
   attr_accessor :x, :y, :radius
@@ -122,10 +122,8 @@ class LightSource
     glBegin GL_QUADS
     glColor4f 0, 0, 0, alpha
     glVertex3f x1, y1, 0
-    glColor4f 0, 0, 0, 0
     glVertex3f x2, y2, 0
     glVertex3f x3, y3, 0
-    glColor4f 0, 0, 0, alpha
     glVertex3f x4, y4, 0
     glEnd
   end

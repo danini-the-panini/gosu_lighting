@@ -20,13 +20,13 @@ class Lighting < Gosu::Window
     @ground_sprite = Gosu::Image.new self, 'ground.png', true
     @circle_sprite = Gosu::Image.new self, 'circle.png'
     @rect_sprite = Gosu::Image.new self, 'rect.png', true
-    @circles = 5.times.map do
+    @circles = 20.times.map do
       Circle.new(Gosu.random(0,width), Gosu.random(0,height), Gosu.random(5,30),
                  @circle_sprite, 0xffff00ff)
     end
     @rects = [
       Rectangle.new(400, 300, 500, 30, @rect_sprite, 0xff00ff00),
-      #Rectangle.new(400, 300, 100, 50, @rect_sprite, 0xff00ff00)
+      Rectangle.new(400, 300, 30, 500, @rect_sprite, 0xff00ff00)
     ]
     @light_source = LightSource.new self, 0, 0, 300
   end
@@ -50,8 +50,8 @@ class Lighting < Gosu::Window
         c.draw depth
       end
       @rects.each do |r|
-        depth = @light_source.shadow_rect self, r
-        r.draw depth
+        @light_source.shadow_rect self, r
+        r.draw 3
       end
     end
     @light_source.draw_attenuation 3
