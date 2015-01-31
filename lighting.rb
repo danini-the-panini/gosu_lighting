@@ -25,8 +25,11 @@ class Lighting < Gosu::Window
                  @circle_sprite, 0xffff00ff)
     end
     @rects = [
-      Rectangle.new(400, 300, 500, 30, @rect_sprite, 0xff00ff00),
-      Rectangle.new(400, 300, 30, 500, @rect_sprite, 0xff00ff00)
+      Rectangle.new(500, 300, 500, 30, @rect_sprite, 0xff00ff00),
+      Rectangle.new(500, 500, 500, 30, @rect_sprite, 0xff00ff00),
+      Rectangle.new(400, 300, 30, 500, @rect_sprite, 0xff00ff00),
+      Rectangle.new(0, 200, 300, 30, @rect_sprite, 0xff00ff00),
+      Rectangle.new(270, 0, 30, 200, @rect_sprite, 0xff00ff00),
     ]
     @light_source = LightSource.new self, 0, 0, 300
   end
