@@ -18,7 +18,7 @@ class Rectangle
       @x+@width, @y, @color,
       @x+@width, @y+@height, @color,
       @x, @y+@height, @color,
-      depth
+      3
   end
 
   def center_x
