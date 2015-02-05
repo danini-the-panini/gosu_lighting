@@ -1,28 +1,15 @@
-class Rectangle
-  attr_accessor :x, :y, :width, :height
+module GosuLighting
+  module Rectangle
+    def draw_lit source
+      self.draw source.shadow_rectangle self
+    end
 
-  def initialize x, y, width, height, sprite, color = 0xffffffff
-    @x = x
-    @y = y
-    @width = width
-    @height = height
-    @sprite = sprite
-    @color = color
-  end
+    def center_x
+      x + width * 0.5
+    end
 
-  def draw depth
-    @sprite.draw_as_quad @x, @y, @color,
-      @x+@width, @y, @color,
-      @x+@width, @y+@height, @color,
-      @x, @y+@height, @color,
-      depth
-  end
-
-  def center_x
-    @x + @width / 2
-  end
-
-  def center_y
-    @y + @height / 2
+    def center_y
+      y + height * 0.5
+    end
   end
 end
