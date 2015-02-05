@@ -1,4 +1,5 @@
 require 'gosu'
+require 'gosu_lighting'
 require 'glfw'
 require 'opengl'
 
