@@ -1,19 +1,8 @@
 require 'gosu'
 require 'gosu_lighting'
-require 'glfw'
-require 'opengl'
-
-OpenGL.load_dll
-GLFW.load_dll
-
-include OpenGL
-include GLFW
-
-glfwInit
 
 require_relative 'circle'
 require_relative 'rectangle'
-require_relative 'light_source'
 
 class Lighting < Gosu::Window
   def initialize

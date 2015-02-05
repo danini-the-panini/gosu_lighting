@@ -1,9 +1,8 @@
 require 'gosu'
 
-require_relative './circle'
-require_relative './rectangle'
-require_relative './source'
+require_relative './gosu_lighting/circle'
+require_relative './gosu_lighting/rectangle'
+require_relative './gosu_lighting/source'
 
 module GosuLighting
-
 end

@@ -6,7 +6,6 @@ Gem::Specification.new do |s|
   s.description = "Vector-based shadows for circles and axis-aligned rectangles in the Gosu graphics library."
   s.authors     = ["Daniel Smith"]
   s.email       = 'jellymann@gmail.com'
-  s.files       = ["lib/gosu_lighting.rb"]
   s.homepage    = 'https://github.com/jellymann/gosu_lighting'
 
   s.add_runtime_dependency 'gosu', '~> 0.8'
@@ -15,4 +14,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'pry', '~> 0.10'
+
+  s.files         = Dir['lib']
+  s.require_paths = ['lib']
 end
