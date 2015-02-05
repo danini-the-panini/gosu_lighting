@@ -3,6 +3,8 @@ Gosu Lighting
 
 Simple vector-based lighting for libgosu.
 
+![alt tag](https://raw.github.com/jellymann/gosu_lighting/master/example.png)
+
 How to use
 ----------
 
