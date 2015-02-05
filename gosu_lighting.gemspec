@@ -10,9 +10,9 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/jellymann/gosu_lighting'
 
   s.add_runtime_dependency 'gosu', '~> 0.8'
-  s.add_runtime_dependency 'opengl-bindings'
-  s.add_runtime_dependency 'ffi'
+  s.add_runtime_dependency 'opengl-bindings', '~> 1.3'
+  s.add_runtime_dependency 'ffi', '~> 1.9'
 
   s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'pry'
+  s.add_development_dependency 'pry', '~> 0.10'
 end
