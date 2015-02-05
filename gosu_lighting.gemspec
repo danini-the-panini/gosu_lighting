@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'gosu_lighting'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.licenses    = ['MIT']
   s.summary     = "Simple vector-based lighting for Gosu"
   s.description = "Vector-based shadows for circles and axis-aligned rectangles in the Gosu graphics library."
@@ -15,6 +15,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'pry', '~> 0.10'
 
-  s.files         = Dir['lib']
+  s.files         = `git ls-files lib`.split "\n"
   s.require_paths = ['lib']
 end
