@@ -1,10 +1,14 @@
+require 'gosu_lighting'
+
 class Circle
-  attr_accessor :x, :y, :r
+  include GosuLighting::Circle
+
+  attr_accessor :x, :y, :radius
 
   def initialize x, y, r, sprite, color = 0xffffffff
     @x = x
     @y = y
-    @r = r
+    @radius = r
     @sprite = sprite
     @color = color
   end
@@ -15,6 +19,6 @@ class Circle
 
   private
   def scale
-    @display_radius ||= @r / (@sprite.width*0.5)
+    @display_radius ||= @radius / (@sprite.width*0.5)
   end
 end
