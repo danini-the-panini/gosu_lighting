@@ -1,4 +1,7 @@
+require 'gosu_lighting'
+
 class Rectangle
+  include GosuLighting::Rectangle
   attr_accessor :x, :y, :width, :height
 
   def initialize x, y, width, height, sprite, color = 0xffffffff

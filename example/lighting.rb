@@ -21,7 +21,7 @@ class Lighting < Gosu::Window
       Rectangle.new(0, 200, 300, 30, @rect_sprite, 0xff00ff00),
       Rectangle.new(270, 0, 30, 200, @rect_sprite, 0xff00ff00),
     ]
-    @light_source = LightSource.new self, 0, 0, 300
+    @light_source = GosuLighting::Source.new self, 0, 0, 300
   end
 
   def update
@@ -30,7 +30,7 @@ class Lighting < Gosu::Window
   end
 
   def draw
-    @light_source.clip(self) do
+    @light_source.draw do |ls|
       grounds_x = width / @ground_sprite.width + 1
       grounds_y = height / @ground_sprite.height + 1
       grounds_x.times do |i|
@@ -39,12 +39,10 @@ class Lighting < Gosu::Window
         end
       end
       @circles.each do |c|
-        depth = @light_source.shadow_circle self, c
-        c.draw depth
+        c.draw_lit ls
       end
       @rects.each do |r|
-        @light_source.shadow_rect self, r
-        r.draw 3
+        r.draw_lit ls
       end
     end
     @light_source.draw_attenuation 3

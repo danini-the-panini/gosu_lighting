@@ -1,3 +1,13 @@
+require 'gosu'
+require 'glfw'
+require 'opengl'
+
+OpenGL.load_dll
+GLFW.load_dll
+
+include OpenGL
+include GLFW
+
 SHADOW_LENGTH = 20000
 
 module GosuLighting
